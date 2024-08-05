@@ -8,6 +8,10 @@ canu -p foxglove -d foxgloves genomeSize=300m /lustre/isaac/scratch/jtorre28/bas
 ```
 # Purge haplotigs
 
+## Pre-Prep: sanatize/format raw nanopore reads for purge haplotigs program
+```
+seqkit sana  /lustre/isaac/scratch/jtorre28/basecalling/A_solani/aulacorthum_nanopore.fastq > /lustre/isaac/scratch/jtorre28/basecalling/A_solani/aulacorthum_sanatized.fasta
+```
 ## Prep: align reads against contigs
 ```
 minimap2 -t 48 -ax map-ont /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/polished2.fasta /lustre/isaac/scratch/jtorre28/basecalling/A_solani/aulacorthum_sanatized.fasta --secondary=no | samtools sort -m 1G -o /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/aligned2.bam -T /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/tmp2.ali
