@@ -79,3 +79,21 @@ python3 ui/egapx.py /lustre/isaac/scratch/jtorre28/unstable/egapx/examples/input
 ```
 singularity exec entap.sif EnTAP --runN --run-ini entap_run.params --entap-ini entap_config.ini -d /lustre/isaac/scratch/jtorre28/database/swissprot/swissprot.dmnd -d /lustre/isaac/scratch/jtorre28/database/ref-seq/invert/invertebrate-all.protein.dmnd -d /lustre/isaac/scratch/jtorre28/database/cluster-nr/nr.dmnd -d /lustre/isaac/scratch/jtorre28/entap/entap_outfiles_solani1/bin/uniprot_trembl.dmnd
 ```
+
+
+# Figures
+
+### Purge haplotigs read coverage histogram
+
+![aligned2 bam histogram 200](https://github.com/user-attachments/assets/c80542e7-289d-4efd-bbba-4188d907cae5)
+
+
+### Snail plot of final assembly 
+
+![A-solani_final snail](https://github.com/user-attachments/assets/103547db-8009-4d42-b60c-7d40e056574d)
+
+
+
+
+
+
