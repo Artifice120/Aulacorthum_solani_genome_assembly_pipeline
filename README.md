@@ -79,7 +79,20 @@ python3 ui/egapx.py /lustre/isaac/scratch/jtorre28/unstable/egapx/examples/input
 ```
 singularity exec entap.sif EnTAP --runN --run-ini entap_run.params --entap-ini entap_config.ini -d /lustre/isaac/scratch/jtorre28/database/swissprot/swissprot.dmnd -d /lustre/isaac/scratch/jtorre28/database/ref-seq/invert/invertebrate-all.protein.dmnd -d /lustre/isaac/scratch/jtorre28/database/cluster-nr/nr.dmnd -d /lustre/isaac/scratch/jtorre28/entap/entap_outfiles_solani1/bin/uniprot_trembl.dmnd
 ```
+# Syntenty between A. Solani assembly and Pea Aphid genome with JCVI
 
+### Prep: format fasta files (second file not shown to avaiod redundancy)
+```
+python -m jcvi.formats.fasta format ../../database/Pea-aphid/GCF_005508785.2_pea_aphid_22Mar2018_4r6ur_v2_genomic.fna pea-aphid.cds
+```
+### Prep: convert gff files to bed format
+```
+python -m jcvi.formats.gff bed --type=mRNA --key=Name ../../database/Pea-aphid/GCF_005508785.2_pea_aphid_22Mar2018_4r6ur_v2_genomic.gff -o pea-aphid.bed
+```
+## Pairwise synteny search
+```
+python -m jcvi.compara.catalog ortholog sol-aphid pea-aphid --no_strip_names
+```
 
 # Figures
 
