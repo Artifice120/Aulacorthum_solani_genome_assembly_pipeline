@@ -106,6 +106,20 @@ python -m jcvi.compara.catalog ortholog sol-aphid pea-aphid --no_strip_names
 ![A-solani_final snail](https://github.com/user-attachments/assets/103547db-8009-4d42-b60c-7d40e056574d)
 
 
+### Genome scope K-mer histogram using 17-mer counts wiht illumina reads
+
+![plot](https://github.com/user-attachments/assets/36d18029-e657-4d81-b6f2-94693685022f)
+
+> Genome scope length and coverage results:
+
+![image](https://github.com/user-attachments/assets/d1a50dd8-a7dc-442a-b66b-1381a9139359)
+
+>> Genome Scope model and statistics
+
+![image](https://github.com/user-attachments/assets/edfb299a-f4f8-490c-9ccc-f7b44587d8bd)
+
+
+
 
 
 
