@@ -1,0 +1,33 @@
+
+# BUSCO version is: 5.7.1
+# The lineage dataset is: hemiptera_odb10 (Creation date: 2024-01-08, number of genomes: 16, number of BUSCOs: 2510)
+# Summarized benchmarking in BUSCO notation for file /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.fasta
+# BUSCO was run in mode: euk_genome_min
+# Gene predictor used: miniprot
+
+        ***** Results: *****
+
+        C:98.6%[S:84.2%,D:14.4%],F:0.5%,M:0.9%,n:2510,E:2.9%
+        2475    Complete BUSCOs (C)     (of which 73 contain internal stop codons)
+        2113    Complete and single-copy BUSCOs (S)
+        362     Complete and duplicated BUSCOs (D)
+        13      Fragmented BUSCOs (F)
+        22      Missing BUSCOs (M)
+        2510    Total BUSCO groups searched
+
+Assembly Statistics:
+        7020    Number of scaffolds
+        7020    Number of contigs
+        670586136       Total length
+        0.000%  Percent gaps
+        195 KB  Scaffold N50
+        195 KB  Contigs N50
+
+
+Dependencies and versions:
+        hmmsearch: 3.1
+        bbtools: 39.01
+        miniprot_index: 0.13-r248
+        miniprot_align: 0.13-r248
+        python: sys.version_info(major=3, minor=7, micro=12, releaselevel='final', serial=0)
+        busco: 5.7.1
