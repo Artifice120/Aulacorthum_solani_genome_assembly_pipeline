@@ -79,20 +79,33 @@ python3 ui/egapx.py /lustre/isaac/scratch/jtorre28/unstable/egapx/examples/input
 ```
 singularity exec entap.sif EnTAP --runN --run-ini entap_run.params --entap-ini entap_config.ini -d /lustre/isaac/scratch/jtorre28/database/swissprot/swissprot.dmnd -d /lustre/isaac/scratch/jtorre28/database/ref-seq/invert/invertebrate-all.protein.dmnd -d /lustre/isaac/scratch/jtorre28/database/cluster-nr/nr.dmnd -d /lustre/isaac/scratch/jtorre28/entap/entap_outfiles_solani1/bin/uniprot_trembl.dmnd
 ```
-# Syntenty between A. Solani assembly and Pea Aphid genome with JCVI
+#Blobtools 
 
-### Prep: format fasta files (second file not shown to avaiod redundancy)
+##Create blobtools directory from fasta file
+
 ```
-python -m jcvi.formats.fasta format ../../database/Pea-aphid/GCF_005508785.2_pea_aphid_22Mar2018_4r6ur_v2_genomic.fna pea-aphid.cds
+blobtools create --fasta /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.fasta A-solani_final
 ```
-### Prep: convert gff files to bed format
+
+## Add read coverage data to blob directory
+
 ```
-python -m jcvi.formats.gff bed --type=mRNA --key=Name ../../database/Pea-aphid/GCF_005508785.2_pea_aphid_22Mar2018_4r6ur_v2_genomic.gff -o pea-aphid.bed
+blobtools add --cov /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.bam A-solani_final
 ```
-## Pairwise synteny search
+
+## Add Busco score results to blob directory
+
 ```
-python -m jcvi.compara.catalog ortholog sol-aphid pea-aphid --no_strip_names
+blobtools add --busco /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/busco.out/run_hemiptera_odb10/full_table.tsv A-solani_final
 ```
+
+## Add blast search results of each contig to blob directory
+
+```
+blobtools add --replace --hits /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/pilon-bubble-filter-all-hits A-solani_final
+```
+
+
 
 # Figures
 
