@@ -1,0 +1,33 @@
+#!/bin/bash
+#SBATCH -J purge_haplos
+#SBATCH --account ACF-UTK0011
+#SBATCH --mem=100gb
+#SBATCH --nodes=1
+#SBATCH --ntasks=48
+#SBATCH --time=03:00:00
+#SBATCH --partition=short
+
+#SBATCH --error=error/PURGE.e%j
+#SBATCH --output=log/PURGE.o%j
+#SBATCH --qos=short
+#SBATCH --exclusive
+
+eval "$(conda shell.bash hook)"
+
+conda activate /lustre/isaac/scratch/jtorre28/enviro/purge_haplotigs
+
+cd /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/
+
+#Prep/ align reads against contigs since we don't have a scaffold
+
+minimap2 -t 48 -ax map-ont /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/polished2.fasta /lustre/isaac/scratch/jtorre28/basecalling/A_solani/aulacorthum_sanatized.fasta --secondary=no | samtools sort -m 1G -o /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/aligned2.bam -T /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/tmp2.ali
+
+#build coverage histogram
+
+purge_haplotigs  hist  -b  /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/aligned2.bam -g /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/polished2.fasta -t 48
+
+#Use histogram to select low (-l) mid (-m) and high (-h) "valley" points
+
+purge_haplotigs  cov  -i /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/aligned2.bam.200.gencov -l 5  -m 15  -h 60  -o /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/coverage_stats_pilon2_foxglove.csv -j 60  -s 60
+
+purge_haplotigs  purge  -g  /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/polished2.fasta -c /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/coverage_stats_pilon2_foxglove.csv -t 45
