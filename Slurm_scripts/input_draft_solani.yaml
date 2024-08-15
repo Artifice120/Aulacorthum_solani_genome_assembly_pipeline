@@ -1,0 +1,5 @@
+genome: /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.fasta
+taxid: 202456
+reads:
+  - /lustre/isaac/scratch/jtorre28/rna-seq/01.RawData/AS_all/AS131_1.fq
+  - /lustre/isaac/scratch/jtorre28/rna-seq/01.RawData/AS_all/AS131_2.fq
