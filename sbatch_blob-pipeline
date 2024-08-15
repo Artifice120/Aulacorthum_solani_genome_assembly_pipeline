@@ -1,0 +1,46 @@
+#!/bin/bash
+#SBATCH -J blob-pipe
+#SBATCH --account ACF-UTK0011
+#SBATCH --mem=100gb
+#SBATCH --nodes=1
+#SBATCH --ntasks=48
+#SBATCH --time=24:00:00
+#SBATCH --partition=campus
+
+#SBATCH --error=error/blobby.e%j
+#SBATCH --output=log/blobby.o%j
+#SBATCH --qos=campus
+#SBATCH --exclusive
+
+#Activates Micromamba program from bash script
+
+source /lustre/isaac/scratch/jtorre28/enviro/mamba/micro/etc/profile.d/micromamba.sh
+
+# Activate micromamba environment with blobtoolkit viewer geckodriver dependency installed
+
+micromamba activate v-btk
+
+# Activates python virtual environment where blobtoolkit program is installed
+
+source /lustre/isaac/scratch/jtorre28/enviro/mamba/micro/envs/v-btk/bin/activate
+
+# Create blobtools directory from fasta file
+
+blobtools create --fasta /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.fasta A-solani_final
+
+# Add read coverage data to blob directory
+
+blobtools add --cov /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.bam A-solani_final
+
+# Add Busco score results to blob directory
+
+blobtools add --busco /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/busco.out/run_hemiptera_odb10/full_table.tsv A-solani_final
+
+# Add blast search results of each contig to blob directory
+
+blobtools add --replace --hits /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/pilon-bubble-filter-all-hits A-solani_final
+
+# Blob directory is finished
+
+echo " >>>>>>>>>>>>>>>>>>>>>> It is finished <<<<<<<<<<<<<<<<<<<<<<<<<<<< "
+echo " Unless there is a message in the error file ... :( "
