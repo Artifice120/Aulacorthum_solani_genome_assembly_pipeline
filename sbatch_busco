@@ -1,0 +1,17 @@
+#!/bin/bash
+#SBATCH -J busco_contigs
+#SBATCH --account ACF-UTK0011
+#SBATCH --mem=100gb
+#SBATCH --nodes=1
+#SBATCH --ntasks=48
+#SBATCH --time=03:00:00
+#SBATCH --partition=short
+
+#SBATCH --error=error/busco.e%j
+#SBATCH --output=log/busco.o%j
+#SBATCH --qos=short
+#SBATCH --exclusive
+
+cd /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2
+
+singularity exec /lustre/isaac/scratch/jtorre28/singularity_containers/busco:v5.7.1_cv1.sif busco -i /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/curated.fasta -l hemiptera_odb10 -c 48 -m geno -o /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/BUSCO.out -f
