@@ -1,0 +1,28 @@
+#!/bin/bash
+#SBATCH -J NCBI-egap
+#SBATCH --account ACF-UTK0011
+#SBATCH --mem=100gb
+#SBATCH --nodes=1
+#SBATCH --ntasks=48
+#SBATCH --time=03:00:00
+#SBATCH --partition=short
+
+#SBATCH --error=error/NCBI-egap.e%j
+#SBATCH --output=log/NCBI-egap.o%j
+#SBATCH --qos=short
+#SBATCH --exclusive
+
+module purge
+
+module load Python/3.9.10-gcc
+
+source /lustre/isaac/scratch/jtorre28/enviro/mamba/micro/envs/v-btk/bin/activate
+echo 'source /lustre/isaac/scratch/jtorre28/enviro/mamba/micro/envs/v-btk/bin/activate'
+
+eval "$(conda shell.bash hook)"
+echo 'eval "$(conda shell.bash hook)"'
+conda activate /lustre/isaac/scratch/jtorre28/enviro/mamba/micro/envs/tbk-m
+echo 'conda activate /lustre/isaac/scratch/jtorre28/enviro/mamba/micro/envs/tbk-m'
+cd /lustre/isaac/scratch/jtorre28/blobby/
+echo 'cd /lustre/isaac/scratch/jtorre28/blobby'
+blobtools add --replace --hits /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/pilon-bubble-filter-all-hits  --taxdump ../taxdump/ a-solani_2/
