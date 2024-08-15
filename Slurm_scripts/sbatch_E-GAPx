@@ -12,20 +12,32 @@
 #SBATCH --qos=campus-bigmem
 #SBATCH --exclusive
 
+# remove any modules loaded in previous jobs, just in case.
+
 module purge
 
+# activate vitual environment with egapx installation
+
 source /lustre/isaac/scratch/jtorre28/e-gapx/egapx/v-env/bin/activate
-echo 'source /lustre/isaac/scratch/jtorre28/unstable/egapx/env-unstable/bin/activate'
+
+# Activate conda program
 
 eval "$(conda shell.bash hook)"
-echo 'eval "$(conda shell.bash hook)"'
+
+# activate concurrent conda environment with Version of Python needed to run egapx program
+
 conda activate /lustre/isaac/scratch/jtorre28/e-gapx/egapx/nextflow/
-echo 'conda activate /lustre/isaac/scratch/jtorre28/unstable/egapx/env-very-unstable/'
+
+# Enter directory with egapx files
+
 cd /lustre/isaac/scratch/jtorre28/e-gapx/egapx/
-echo 'cd /lustre/isaac/scratch/jtorre28/unstable/egapx/'
-#python3 /lustre/isaac/scratch/jtorre28/e-gapx/egapx/ui/egapx.py ./examples/input_D_farinae_small.yaml -e singularity -w s3://temp_datapath/D_farinae -o example_out
+
+# display python version before running egapx for error tracking
 
 python3 --version
+
+# Command to actuall run egapx with singularity image to avoid needing root privleges, yaml file contained the file paths for the assembly as well as the corresponding RNA-reads
+# Uploaded the YAML file to git-hub as well named input_draft_solani.yaml if you want to see how to format with lacal files 
 
 python3 ui/egapx.py /lustre/isaac/scratch/jtorre28/unstable/egapx/examples/input_draft_solani.yaml -e singularity -w tmp-sol -o sol_out
 
