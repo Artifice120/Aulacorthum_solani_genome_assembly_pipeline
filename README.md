@@ -41,9 +41,11 @@ samtools coverage /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/illumi
 ## Blobtools visulaizer
 ### Visualize busco score, read coverage, and taxonomy assignments to remove contaminated contigs.
 
-## Create Blobtools format directory
+
+## Create blobtools directory from fasta file
+
 ```
-blobtools create --fasta /path/to/curated.fasta a-solani_2
+blobtools create --fasta /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.fasta A-solani_final
 ```
 ## Map nanopore reads to contigs for blobtools
 ```
@@ -52,39 +54,6 @@ minimap2 -ax map-ont \
         /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.fasta" \
         /lustre/isaac/scratch/jtorre28/basecalling/A_solani/aulacorthum_sanatized.fasta \
  | samtools sort -@16 -O BAM -o /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.bam -
-```
-## Add read coverage to blob directory
-```
-blobtools add --cov /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.bam a-solani_2/
-```
-## Add BLAST output for taxonomy assignmetn to blobtools blob directory
-```
-blobtools add --replace --hits /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/pilon-bubble-filter-all-hits  --taxdump ../taxdump/ a-solani_2/
-```
-## Add Busco output file to blob directory
-```
-blobtools add --busco artho-only/lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/busco.out/run_hemiptera_odb10/full_table.tsv a-solani_2/
-```
-## View and download blob directory table and figures
-```
-blobtools view --local a-solani_2/
-```
-
-# Annotation of contigs by e-gapx pipeline.
-```
-python3 ui/egapx.py /lustre/isaac/scratch/jtorre28/unstable/egapx/examples/input_draft_solani.yaml -e singularity -w tmp-sol -o sol_out
-```
-## Funtional annotation with EnTAP singularity image 
-> Homology searches done with NCBI NR database, uniprot tremble database, uniprot swissprot database, and the ref-seq inverebrate partition database
-```
-singularity exec entap.sif EnTAP --runN --run-ini entap_run.params --entap-ini entap_config.ini -d /lustre/isaac/scratch/jtorre28/database/swissprot/swissprot.dmnd -d /lustre/isaac/scratch/jtorre28/database/ref-seq/invert/invertebrate-all.protein.dmnd -d /lustre/isaac/scratch/jtorre28/database/cluster-nr/nr.dmnd -d /lustre/isaac/scratch/jtorre28/entap/entap_outfiles_solani1/bin/uniprot_trembl.dmnd
-```
-#Blobtools 
-
-##Create blobtools directory from fasta file
-
-```
-blobtools create --fasta /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/artho-only/pilon-bubble-filter-Arthro-only.fasta A-solani_final
 ```
 
 ## Add read coverage data to blob directory
@@ -103,6 +72,21 @@ blobtools add --busco /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/ar
 
 ```
 blobtools add --replace --hits /lustre/isaac/scratch/jtorre28/foxgloves/purged/purged2/pilon-bubble-filter-all-hits A-solani_final
+```
+
+## View and download blob directory table and figures from local browser user interface
+```
+blobtools view --local a-solani_final
+```
+
+# Annotation of contigs by e-gapx pipeline.
+```
+python3 ui/egapx.py /lustre/isaac/scratch/jtorre28/unstable/egapx/examples/input_draft_solani.yaml -e singularity -w tmp-sol -o sol_out
+```
+## Funtional annotation with EnTAP singularity image 
+> Homology searches done with NCBI NR database, uniprot tremble database, uniprot swissprot database, and the ref-seq inverebrate partition database
+```
+singularity exec entap.sif EnTAP --runN --run-ini entap_run.params --entap-ini entap_config.ini -d /lustre/isaac/scratch/jtorre28/database/swissprot/swissprot.dmnd -d /lustre/isaac/scratch/jtorre28/database/ref-seq/invert/invertebrate-all.protein.dmnd -d /lustre/isaac/scratch/jtorre28/database/cluster-nr/nr.dmnd -d /lustre/isaac/scratch/jtorre28/entap/entap_outfiles_solani1/bin/uniprot_trembl.dmnd
 ```
 
 
