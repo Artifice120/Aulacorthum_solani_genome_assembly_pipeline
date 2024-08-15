@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH -J NCBI-egap
+#SBATCH --account ACF-UTK0011
+#SBATCH --mem=100gb
+#SBATCH --nodes=1
+#SBATCH --ntasks=48
+#SBATCH --time=10:00:00
+#SBATCH --partition=campus-bigmem
+
+#SBATCH --error=error/NCBI-egap.e%j
+#SBATCH --output=log/NCBI-egap.o%j
+#SBATCH --qos=campus-bigmem
+#SBATCH --exclusive
+
+module purge
+
+source /lustre/isaac/scratch/jtorre28/e-gapx/egapx/v-env/bin/activate
+echo 'source /lustre/isaac/scratch/jtorre28/unstable/egapx/env-unstable/bin/activate'
+
+eval "$(conda shell.bash hook)"
+echo 'eval "$(conda shell.bash hook)"'
+conda activate /lustre/isaac/scratch/jtorre28/e-gapx/egapx/nextflow/
+echo 'conda activate /lustre/isaac/scratch/jtorre28/unstable/egapx/env-very-unstable/'
+cd /lustre/isaac/scratch/jtorre28/e-gapx/egapx/
+echo 'cd /lustre/isaac/scratch/jtorre28/unstable/egapx/'
+#python3 /lustre/isaac/scratch/jtorre28/e-gapx/egapx/ui/egapx.py ./examples/input_D_farinae_small.yaml -e singularity -w s3://temp_datapath/D_farinae -o example_out
+
+python3 --version
+
+python3 ui/egapx.py /lustre/isaac/scratch/jtorre28/unstable/egapx/examples/input_draft_solani.yaml -e singularity -w tmp-sol -o sol_out
+
