@@ -11,8 +11,8 @@
 #SBATCH --qos=campus-bigmem
 #SBATCH --exclusive
 
-cd /lustre/isaac/scratch/jtorre28/solani
+cd /lustre/isaac/scratch/jtorre28/foxgloves
 
 module load canu
 
-canu -p solani -d /lustre/isaac/scratch/jtorre28/solani genomeSize=300m utgReAlign=true overlapper=mhap -nanopore /lustre/isaac/scratch/jtorre28/basecalling/A_solani/all_reads_sola.fasta usegrid=false
+canu -p foxglove -d /lustre/isaac/scratch/jtorre28/foxgloves genomeSize=300m utgReAlign=true overlapper=mhap -nanopore /lustre/isaac/scratch/jtorre28/basecalling/A_solani/aulacorthum_nanopore.fastq usegrid=false
