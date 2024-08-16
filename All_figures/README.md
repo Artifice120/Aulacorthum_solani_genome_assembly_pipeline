@@ -21,3 +21,8 @@
 >> Genome Scope model and statistics
 
 ![image](https://github.com/user-attachments/assets/edfb299a-f4f8-490c-9ccc-f7b44587d8bd)
+
+## blastKOALA pie-chart
+
+![image](https://github.com/user-attachments/assets/2a970a6a-fe9a-4716-b65d-60123455b9f8)
+
